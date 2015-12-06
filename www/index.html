@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>ZeeDo</title>
+
+  <link rel="stylesheet" href="vendor/topcoat/css/topcoat-mobile-light.css" />
+  <link rel="stylesheet" href="stylesheets/jquery.mobile.css" />
+  <link rel="stylesheet" href="stylesheets/application.css" />
+  <link rel="stylesheet" href="stylesheets/font-awesome.css" />
+  <script src="components/steroids-js/steroids.js"></script>
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="javascripts/jquery.mobile.min.js"></script>
+  <script src="cordova.js"></script>
+  
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+  <script type="text/javascript" charset="utf-8" src="javascripts/jquery.ui.map.js"></script>
+  
+  
+  <!-- cordova facebook plugin -->
+  <script src="cdv-plugin-fb-connect.js"></script>
+  <!-- facebook js sdk -->
+  <script src="facebook-js-sdk.js"></script>
+  <script src="javascripts/auth.js"></script>
+  <script src="javascripts/main.js"></script>
+
+
+</head>
+<body>
+    
+    <!-- REGISTRATION PAGE -->
+    
+    <div data-role="page" id="registration" class='ui-icon-nodisc'>
+        <div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+           <div class="logo">ZeeDO</div>
+        </div>
+        <div data-role="content">
+            <div class="reg-social">
+                <div class="icons social-icons">
+                    <ul>
+                        <li onclick="login()">&#xF610;</li>
+                        <li>&#xF612;</li>
+                        <li>&#xF611;</li>
+                    </ul>
+                </div>
+                <div class="terms-checkbox">
+                    <fieldset>
+                        <input type="checkbox" name="terms" id="terms" class="custom" data-role="none"/>
+                        <label for="terms" data-role="none">Accept terms  conditions</label>
+                    </fieldset>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+<div data-role="page" id="games" class='ui-icon-nodisc'>
+    <div data-role="panel" id="mypanel" data-display="reveal">
+		<ul data-role="listview">
+		<li data-iconshadow="false"><a href="#games"  data-transition="none"  data-icon="none" >All Games</a></li>
+		<li data-iconshadow="false"><a href="#mygames"  data-transition="none">My Games</a></li>
+		<li data-iconshadow="false"><a href="#dashboard"  data-transition="none">Dashboard</a></li>
+		<li data-iconshadow="false"><a href="#profile-statistics">Profile</a></li>
+		<li data-iconshadow="false"><a href="#registration" data-transition="none">Sign In!</a></li>
+	</ul>
+	</div><!-- /panel -->
+    <div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+        <a href="#mypanel"  data-inline="true" class="panel-btn-wrap"><i class="fa fa-bars"></i></a>
+		<div class="logo">ZeeDO</div>
+		<a href="#profile-statistics" class="settings-btn-wrap"><i class="fa fa-cogs"></i></a>
+        <div class="top-navholder">
+		   <ul class="top-nav">
+			 <li><a href="#games" class="active">Games</a></li>
+			 <li id="sep"><a href="#mygames"  data-transition="slide">My Games</a></li>
+			 <li id="sep"><a href="#dashboard"  data-transition="slide" >Dashboard</a></li>
+		   </ul>
+			<div class="menu-shadow"></div>
+		</div>
+	 </div>
+
+
+
+	<div data-role="content" id="available_games_content">
+    <ul class="games_list"> </ul>
+	</div>
+</div>
+
+<div data-role="page" id="mygames">
+    <div data-role="panel" id="mypanel" data-display="reveal" class='ui-icon-nodisc'>
+		<ul data-role="listview" class='ui-icon-nodisc'>
+			<li data-iconshadow="false"><a href="#games"  data-transition="none"  data-icon="none" >All Games</a></li>
+			<li data-iconshadow="false"><a href="#mygames"  data-transition="none">My Games</a></li>
+			<li data-iconshadow="false"><a href="#dashboard"  data-transition="none">Dashboard</a></li>
+			<li data-iconshadow="false"><a href="#profile-statistics">Profile</a></li>
+			<li data-iconshadow="false"><a href="#registration" data-transition="none">Sign In!</a></li>
+		</ul>
+	</div><!-- /panel -->
+    <div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+		<a href="#mypanel"  data-inline="true" class="panel-btn-wrap"><i class="fa fa-bars"></i></a>
+		<div class="logo">ZeeDO</div>
+		<a href="#profile-statistics" class="settings-btn-wrap"><i class="fa fa-cogs"></i></a>
+        <div class="top-navholder">
+		<ul class="top-nav">
+			 <li><a href="#games"  data-transition="slide" data-direction="reverse">Games</a></li>
+			 <li id="sep"><a href="#mygames" class="active"  data-transition="slide">My Games</a></li>
+			 <li id="sep"><a href="#dashboard"  data-transition="slide">Dashboard</a></li>
+		</ul>
+		<div class="menu-shadow"></div>
+	</div>
+   </div>
+    <!-- Modal First you need to Login -->
+	<div data-role="popup" data-overlay-theme="a" id="login-first"  data-transition="pop"   data-position-to="window"><a href="" data-rel="back"  class="close">X</a>First you need to log in
+        <ul>
+            <li onclick="login()">&#xF610;</li>
+            <li>&#xF612;</li>
+            <li>&#xF611;</li>
+        </ul>
+	</div>   
+	<!-- End modal -->
+	<div data-role="content" id="mygames_content">
+		 <ul class="games_list"> </ul>
+	</div>
+</div>
+
+<div data-role="page" id="dashboard">
+   <div data-role="panel" id="mypanel" data-display="reveal" class='ui-icon-nodisc'>
+		<ul data-role="listview" class='ui-icon-nodisc'>
+			<li data-iconshadow="false"><a href="#games"  data-transition="none"  data-icon="none" >All Games</a></li>
+			<li data-iconshadow="false"><a href="#mygames"  data-transition="none">My Games</a></li>
+			<li data-iconshadow="false"><a href="#dashboard"  data-transition="none">Dashboard</a></li>
+			<li data-iconshadow="false"><a href="#profile-statistics">Profile</a></li>
+			<li data-iconshadow="false"><a href="#registration" data-transition="none">Sign In!</a></li>
+		</ul>
+	</div><!-- /panel -->
+    <div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+		<a href="#mypanel"  data-inline="true" class="panel-btn-wrap"><i class="fa fa-bars"></i></a>
+		<div class="logo">ZeeDO</div>
+		<a href="#profile-statistics" class="settings-btn-wrap"><i class="fa fa-cogs"></i></a>
+	    <div class="top-navholder">
+	    <ul class="top-nav">
+		 <li><a href="#games"  data-transition="slide" data-direction="reverse">Games</a></li>
+		 <li id="sep"><a href="#mygames"  data-transition="slide" data-direction="reverse">My Games</a></li>
+		 <li id="sep"><a href="#dashboard" class="active"  data-transition="slide">Dashboard</a></li>
+	    </ul>
+	   <div class="menu-shadow"></div>
+	</div>
+   </div>
+	<div data-role="content">
+	  <div class="dashboard">
+		<div class="points">0   Points!</div>
+		<ul class="statistics"></ul>
+		<ul class="statistics_snapshots"></ul>        
+	  </div>
+	</div>
+</div>
+
+
+</div>
+
+
+
+<!-- STATISTICS -->
+<div data-role="page" id="profile-statistics" class='ui-icon-nodisc'>
+      <div data-role="panel" id="mypanel" data-display="reveal" class='ui-icon-nodisc'>
+    <ul data-role="listview">
+    <li data-iconshadow="false"><a href="#games"  data-transition="none"  data-icon="none" >All Games</a></li>
+    <li data-iconshadow="false"><a href="#mygames"  data-transition="none">My Games</a></li>
+    <li data-iconshadow="false"><a href="#dashboard"  data-transition="none">Dashboard</a></li>
+    <li data-iconshadow="false"><a href="#profile-statistics">Profile</a></li>
+    <li data-iconshadow="false"><a href="#registration" data-transition="none">Sign In!</a></li>
+</ul>
+</div><!-- /panel -->
+    <div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+     <a href="#mypanel"  data-inline="true" class="panel-btn-wrap"><i class="fa fa-bars"></i></a>
+    <div class="logo">ZeeDO</div>
+     <a href="#profile-statistics" class="settings-btn-wrap"><i class="fa fa-cogs"></i></a>
+    
+   </div>
+<div data-role="content">
+  <div class="profile-content">
+<div class="person">
+<div class="profile-details">
+<div class="avatar"><img id="fb_profile_image"/></div>
+<div class="name"><a data-role="none" href="#profile-statistics-edit" id="fb_profile_name"></a><a href="#profile-statistics-edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+</div>
+
+</div>
+<div class="profile-text">
+<h1>Statistics</h1>
+<p>"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."</p>
+</div>
+</div>
+<div class="clear"></div>
+<div class="line"></div>
+<div class="profile-statistics">
+  <div class="field" id="PlayedGames">Played Games:</div>
+  <div class="field" id="PhotosCaptured">Photos Captured:</div>
+  <div class="field" id="PointsGathered">Points Gathered:</div>
+</div>
+<div class="btns">
+<a class="btn" href="#games" data-role="none">BACK</a>
+</div>
+</div>
+</div>
+<!-- Edit Stat -->
+
+<div data-role="page" id="profile-statistics-edit" class='ui-icon-nodisc'>
+     <div data-role="panel" id="mypanel" data-display="reveal" class='ui-icon-nodisc'>
+    <ul data-role="listview">
+    <li data-iconshadow="false"><a href="#games"  data-transition="none"  data-icon="none" >All Games</a></li>
+    <li data-iconshadow="false"><a href="#mygames"  data-transition="none">My Games</a></li>
+    <li data-iconshadow="false"><a href="#dashboard"  data-transition="none">Dashboard</a></li>
+    <li data-iconshadow="false"><a href="#profile-statistics">Profile</a></li>
+    <li data-iconshadow="false"><a href="#registration" data-transition="none">Sign In!</a></li>
+</ul>
+</div><!-- /panel -->
+    <div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+     <a href="#profile-statistics"  data-inline="true" class="panel-btn-wrap"><i class="fa fa-chevron-circle-left"></i></a>
+    <div class="logo">ZeeDO</div>
+     <a href="#" class="settings-btn-wrap"><i class="fa fa-check-circle"></i></a>
+     
+   </div>
+<div data-role="content">
+  <div class="profile-content">
+<div class="person">
+<div class="profile-details">
+<div class="avatar"><img id="fb_profile_detail_image"/></div>
+
+</div>
+
+</div>
+<div class="profile-text">
+<h1>Statistics</h1>
+<p>"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."</p>
+<div class="social-icons">
+  <ul>
+    <li>&#xF610;</li>
+    <li>&#xF612;</li>
+    <li>&#xF611;</li>
+  </ul>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="profile-statistics">
+  <div class="field" id="NickName">Nick Name</div>
+  <div class="field" id="FirstName">First Name</div>
+  <div class="field" id="LastName">Last Name</div>
+  <div class="field" id="Dob">Dob</div>
+  <div class="field" id="Email">Email</div>
+</div>
+<div class="btns">
+<a class="btn" href="#profile-statistics" data-role="none">SAVE</a>
+<a class="btn" href="#profile-statistics" data-role="none">Cancel</a>
+</div>
+</div>
+</div>
+<!-- Game Page -->
+
+<div data-role="page" id="game-page" class='ui-icon-nodisc'>
+    <div data-role="panel" id="mypanel" data-display="reveal" class='ui-icon-nodisc'>
+    <ul data-role="listview">
+    <li data-iconshadow="false"><a href="#games"  data-transition="none"  data-icon="none" >All Games</a></li>
+    <li data-iconshadow="false"><a href="#mygames"  data-transition="none">My Games</a></li>
+    <li data-iconshadow="false"><a href="#dashboard"  data-transition="none">Dashboard</a></li>
+    <li data-iconshadow="false"><a href="#profile-statistics">Profile</a></li>
+    <li data-iconshadow="false"><a href="#registration" data-transition="none">Sign In!</a></li>
+</ul>
+</div><!-- /panel -->
+<div data-role="header"  data-position="fixed" data-tap-toggle="false"  data-id="h1">
+    <a href="#home"  data-inline="true" class="panel-btn-wrap"><i class="fa fa-chevron-circle-left"></i></a>
+    <div class="logo">ZeeDO</div>
+     <a href="#" class="settings-btn-wrap"><i class="fa fa-check-circle"></i></a>
+      
+   </div>
+
+<div data-role="content">
+  
+  <ul class="game-images">
+    <li><div class="game-img"><img src="img/game_single.png" alt="" id=""></div>
+<a data-role="none" href="" class="photo" id=""><i class="fa fa-camera"></i></a>
+    </li>
+    <li><div class="game-img"><img src="img/game_single.png" alt="" id=""></div>
+<a data-role="none" href="" class="photo" id=""><i class="fa fa-camera"></i></a>
+    </li>
+    <li><div class="game-img"><img src="img/game_single.png" alt="" id=""></div>
+<a data-role="none" href="" class="photo" id=""><i class="fa fa-camera"></i></a>
+    </li>
+  </ul>
+  <ul class="single-game-details">
+    <li><span class="title">Game</span><span class="details" id="detail_game_name"></span></li>
+    <li><span class="title">Author</span> <span class="details" id="detail_game_author"></span></li>
+    <li><span class="title">Availibale</span> <span class="details" id="detail_game_available"></span></li>
+    <li><span class="title">Target</span> <span class="details" id="detail_game_target"></span></li>
+    <li><span class="title">Points gatherd</span> <span class="details" id="detail_game_points"></span></li>
+    <li><span class="title">Images captured</span> <span class="details" id="detail_game_images"></span></li>
+    <li><span class="title">Successful</span> <span class="details" id="detail_game_successful"></span></li>
+    <li><span class="title">Pending</span> <span class="details" id="detail_game_pending"></span></li>
+  </ul>
+  <div class="btns">
+<a class="btn" href="#games" data-role="none">Back</a>
+<a class="btn" data-role="none" id="game_drop_btn">Drop</a>
+</div>
+</div>
+</div>
+
+
+</body>
+</html>
